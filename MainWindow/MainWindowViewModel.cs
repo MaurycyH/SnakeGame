@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
+using System.Windows.Input;
 
 namespace SnakeSense.MainWindow
 {
@@ -43,22 +44,32 @@ namespace SnakeSense.MainWindow
                 OnPropertyChanged(nameof(YPosition));
             }
         }
+        // Using it for refresh screen im not sure if it is better than DrawingVisual
         public Timer Timer { get; set; }
+
+        public ICommand KeyCommand { get; }
         //Default Constructor
         public MainWindowViewModel()
         {
             XPosition = 150;
             YPosition = 100;
             mXSpeed = 15;
-            Timer = new Timer(100);
-
+            Timer = new Timer(150);
             Timer.Elapsed += new ElapsedEventHandler(MoveSnake);
             Timer.Enabled = true;
+            KeyCommand = new ParametrCommand(parametr => KeyPressed(parametr),true);
+ 
         }
         public void MoveSnake(object source, ElapsedEventArgs e)
         {
             XPosition += mXSpeed;
             
+        }
+        public void KeyPressed(object argument)
+        {
+            string Direction;
+            Direction = argument as string;
+           
         }
     }
 }

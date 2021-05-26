@@ -6,8 +6,17 @@
         xmlns:local="clr-namespace:SnakeSense.MainWindow"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <!-- Snake control input -->
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding KeyCommand}" CommandParameter="UpKey"  Key="Up" />
+        <KeyBinding Command="{Binding KeyCommand}" CommandParameter="DownKey"  Key="Down" />
+        <KeyBinding Command="{Binding KeyCommand}" CommandParameter="LeftKey" Key="Left"/>
+        <KeyBinding Command="{Binding KeyCommand}" CommandParameter="RightKey"  Key="Right"/>
+    </Window.InputBindings>
+    
     <Grid>
         <Canvas>
+            <!-- Snake Head-->
             <Rectangle
                 Canvas.Left="{Binding XPosition}"
                 Canvas.Top="{Binding YPosition}"
