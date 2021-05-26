@@ -44,6 +44,30 @@ namespace SnakeSense.MainWindow
                 OnPropertyChanged(nameof(YPosition));
             }
         }
+        public int XSpeed
+        {
+            get
+            {
+                return mXSpeed;
+            }
+            set
+            {
+                mXSpeed = value;
+                OnPropertyChanged(nameof(XSpeed));
+            }
+        }
+        public int YSpeed
+        {
+            get
+            {
+                return mYSpeed;
+            }
+            set
+            {
+                mYSpeed = value;
+                OnPropertyChanged(nameof(YSpeed));
+            }
+        }
         // Using it for refresh screen im not sure if it is better than DrawingVisual
         public Timer Timer { get; set; }
 
@@ -51,10 +75,9 @@ namespace SnakeSense.MainWindow
         //Default Constructor
         public MainWindowViewModel()
         {
+            Timer = new Timer(150);
             XPosition = 150;
             YPosition = 100;
-            mXSpeed = 15;
-            Timer = new Timer(150);
             Timer.Elapsed += new ElapsedEventHandler(MoveSnake);
             Timer.Enabled = true;
             KeyCommand = new ParametrCommand(parametr => KeyPressed(parametr),true);
@@ -62,13 +85,36 @@ namespace SnakeSense.MainWindow
         }
         public void MoveSnake(object source, ElapsedEventArgs e)
         {
-            XPosition += mXSpeed;
+            XPosition += XSpeed;
+            YPosition += YSpeed;
             
         }
         public void KeyPressed(object argument)
         {
             string Direction;
             Direction = argument as string;
+            switch(Direction)
+            {
+                case "UpKey":
+                    YSpeed = -10;
+                    XSpeed = 0;
+                    break;
+                case "DownKey":
+                    YSpeed = 10;
+                    XSpeed = 0;
+                    break;
+                case "LeftKey":
+                    YSpeed = 0;
+                    XSpeed = -10;
+                    break;
+                case "RightKey":
+                    YSpeed = 0;
+                    XSpeed = 10;
+                    break;
+                default:
+                    break;
+            }
+               
            
         }
     }
