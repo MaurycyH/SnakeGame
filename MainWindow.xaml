@@ -8,7 +8,12 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Canvas>
-            
+            <Rectangle
+                Canvas.Left="200"
+                Canvas.Top="150"
+                Width="15"
+                Height="12"
+                Fill="Red"/>
         </Canvas>
         
     </Grid>
