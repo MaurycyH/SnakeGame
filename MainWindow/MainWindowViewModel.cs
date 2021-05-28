@@ -52,7 +52,10 @@ namespace SnakeSense.MainWindow
             {
                 Snake.MoveSnake(source, e);
             }
-          
+            if (CheckAppleEat())
+            {
+                Apple.SpawnNextApple();
+            }
 
         }
         public bool ChceckBorder()
@@ -76,7 +79,24 @@ namespace SnakeSense.MainWindow
             {
                 return false;
             }
-
+        }
+        public bool CheckAppleEat()
+        {
+            if (!IfPause) 
+            {
+                if ((Snake.XPosition == Apple.XPosition) && (Snake.XPosition == Apple.XPosition))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

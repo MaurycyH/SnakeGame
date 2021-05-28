@@ -40,8 +40,14 @@ namespace SnakeSense
         Random Random = new Random();
         public Apple()
         {
-            XPosition = Random.Next(50, 650);
-            YPosition = Random.Next(50, 400);
+            XPosition = Random.Next(25, 650);
+            YPosition = Random.Next(25, 400);
+        }
+
+        public void SpawnNextApple()
+        {
+            XPosition = Random.Next(25, 650);
+            YPosition = Random.Next(25, 400);
         }
     }
 }
