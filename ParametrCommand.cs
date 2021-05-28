@@ -7,11 +7,11 @@ using System.Windows.Input;
 
 namespace SnakeSense
 {
-    public class ParametrCommand : ICommand
+    public class ParameterCommand : ICommand
     {
         private Action<object> mAction;
         private bool mCanExecute;
-        public ParametrCommand(Action<object> action, bool canExecute)
+        public ParameterCommand(Action<object> action, bool canExecute)
         {
             mAction = action;
             mCanExecute = canExecute;

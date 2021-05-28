@@ -8,18 +8,18 @@
         Title="MainWindow" Height="450" Width="800">
     <!-- Snake control input -->
     <Window.InputBindings>
-        <KeyBinding Command="{Binding KeyCommand}" CommandParameter="UpKey"  Key="Up" />
-        <KeyBinding Command="{Binding KeyCommand}" CommandParameter="DownKey"  Key="Down" />
-        <KeyBinding Command="{Binding KeyCommand}" CommandParameter="LeftKey" Key="Left"/>
-        <KeyBinding Command="{Binding KeyCommand}" CommandParameter="RightKey"  Key="Right"/>
+        <KeyBinding Command="{Binding Path = Snake.KeyCommand}" CommandParameter="UpKey"  Key="Up" />
+        <KeyBinding Command="{Binding Path = Snake.KeyCommand}" CommandParameter="DownKey"  Key="Down" />
+        <KeyBinding Command="{Binding Path = Snake.KeyCommand}" CommandParameter="LeftKey" Key="Left"/>
+        <KeyBinding Command="{Binding Path = Snake.KeyCommand}" CommandParameter="RightKey"  Key="Right"/>
     </Window.InputBindings>
     
     <Grid>
         <Canvas>
             <!-- Snake Head-->
             <Rectangle
-                Canvas.Left="{Binding XPosition}"
-                Canvas.Top="{Binding YPosition}"
+                Canvas.Left="{Binding Path = Snake.XPosition}"
+                Canvas.Top="{Binding Path = Snake.YPosition}"
                 Width="15"
                 Height="12"
                 Fill="Red"/>
