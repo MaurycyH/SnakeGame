@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SnakeSense
 {
-    public abstract class NotifyViewModel : INotifyPropertyChanged
+    public abstract class NotifyModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string PropertyName)

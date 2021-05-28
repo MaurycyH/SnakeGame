@@ -10,9 +10,10 @@ using System.Windows.Input;
 
 namespace SnakeSense.MainWindow
 {
-
-    //ViewModel for MainWindow
-    public class MainWindowViewModel : NotifyViewModel
+    /// <summary>
+    /// ViewModel for MainWindow
+    /// </summary>
+    public class MainWindowViewModel : NotifyModel
     {
         private double mWindowHeight;
         private double mWindowWidth;
@@ -21,6 +22,8 @@ namespace SnakeSense.MainWindow
         ///  Object representing Snake
         /// </summary>
         public Snake Snake { get; }
+
+        public Apple Apple { get; }
         /// <summary>
         /// Using it for refresh screen im not sure if it is better than DrawingVisual
         /// </summary>
@@ -35,6 +38,7 @@ namespace SnakeSense.MainWindow
         public MainWindowViewModel()
         {
             Snake = new Snake();
+            Apple = new Apple();
             Timer = new Timer(50);
             mWindowHeight = App.Current.MainWindow.Height;
             mWindowWidth = App.Current.MainWindow.Width;

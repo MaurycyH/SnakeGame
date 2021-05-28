@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace SnakeSense
 {
-    public class Snake : NotifyViewModel
+    public class Snake : NotifyModel
     {
         private int mXPosition;
         private int mYPosition;

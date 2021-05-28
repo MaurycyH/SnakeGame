@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Apple.cs" />
     <Compile Include="Snake.cs" />
     <Page Include="MainWindow\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -71,7 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainWindow\MainWindowViewModel.cs" />
-    <Compile Include="NotifyViewModel.cs" />
+    <Compile Include="NotifyModel.cs" />
     <Compile Include="ParametrCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
