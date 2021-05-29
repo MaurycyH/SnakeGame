@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace SnakeSense.MainWindow
@@ -15,9 +17,11 @@ namespace SnakeSense.MainWindow
     /// </summary>
     public class MainWindowViewModel : NotifyModel
     {
+        object _itemsLock = new object ();
         private double mWindowHeight;
         private double mWindowWidth;
         private bool IfPause = false;
+        public ObservableCollection<SnakesBody> SnakesBody { get; }
         /// <summary>
         ///  Object representing Snake
         /// </summary>
@@ -42,6 +46,8 @@ namespace SnakeSense.MainWindow
             Timer = new Timer(50);
             mWindowHeight = App.Current.MainWindow.Height;
             mWindowWidth = App.Current.MainWindow.Width;
+            SnakesBody = new ObservableCollection<SnakesBody>();
+            BindingOperations.EnableCollectionSynchronization(SnakesBody, _itemsLock);
             Timer.Elapsed += new ElapsedEventHandler(RefreshSnakePosition);
             Timer.Enabled = true;
             
@@ -55,6 +61,11 @@ namespace SnakeSense.MainWindow
             if (CheckAppleEat())
             {
                 Apple.SpawnNextApple();
+                lock (_itemsLock)
+                {
+                    SnakesBody.Add(new SnakesBody(Snake.XPosition - 10, Snake.YPosition - 5));
+                }
+
             }
 
         }

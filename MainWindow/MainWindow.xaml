@@ -16,6 +16,22 @@
     
     <Grid>
         <Canvas>
+            <!--  Snake body parts  -->
+            <ItemsControl ItemsSource="{Binding Path = SnakesBody}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Canvas>
+                            <!--  Single snake body part  -->
+                            <Rectangle
+                                    Canvas.Left="{Binding XPosition}"
+                                    Canvas.Top="{Binding YPosition}"
+                                    Width="15"
+                                    Height="10"
+                                    Fill="Blue" />
+                        </Canvas>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
             <!-- Snake Head-->
             <Rectangle
                 Canvas.Left="{Binding Path = Snake.XPosition}"
