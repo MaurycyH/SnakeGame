@@ -84,7 +84,7 @@ namespace SnakeSense.MainWindow
         {
             if (!IfPause) 
             {
-                if ((Snake.XPosition == Apple.XPosition) && (Snake.XPosition == Apple.XPosition))
+                if ((Snake.XPosition  >= Apple.XPosition - 15) && (Snake.XPosition  <= Apple.XPosition+15) && (Snake.YPosition  >= Apple.YPosition - 15) && (Snake.YPosition  <= Apple.YPosition + 15))
                 {
                     return true;
                 }
