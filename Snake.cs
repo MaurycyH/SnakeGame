@@ -85,7 +85,6 @@ namespace SnakeSense
             XPosition = 150;
             YPosition = 100;
             Score = 0;
-            TransformAngle = 0;
             KeyCommand = new ParameterCommand(parameter => KeyPressed(parameter), true);
         }
         public void MoveSnake(object source, ElapsedEventArgs e)

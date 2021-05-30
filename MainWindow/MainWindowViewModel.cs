@@ -17,7 +17,7 @@ namespace SnakeSense.MainWindow
     /// </summary>
     public class MainWindowViewModel : NotifyModel
     {
-        object mSnakesBodyLock = new object ();
+        object mSnakesBodyLock = new object();
         private double mWindowHeight;
         private double mWindowWidth;
         private bool IfPause = false;
@@ -43,33 +43,33 @@ namespace SnakeSense.MainWindow
         {
             Snake = new Snake();
             Apple = new Apple();
-            Timer = new Timer(50);
+            Timer = new Timer(35);
             mWindowHeight = App.Current.MainWindow.Height;
             mWindowWidth = App.Current.MainWindow.Width;
             SnakesBody = new ObservableCollection<SnakesBody>();
             BindingOperations.EnableCollectionSynchronization(SnakesBody, mSnakesBodyLock);
             Timer.Elapsed += new ElapsedEventHandler(RefreshSnakePosition);
             Timer.Enabled = true;
-            
+
         }
         public void RefreshSnakePosition(object source, ElapsedEventArgs e)
         {
             if (ChceckBorder())
             {
                 Snake.MoveSnake(source, e);
-                for (int i = 0; i < SnakesBody.Count(); i++)
+                for (int i = SnakesBody.Count() - 1; i >= 0; i--)
                 {
-                    if ( i == SnakesBody.Count() - 1)
+                    if (i == 0)
                     {
                         SnakesBody[i].MoveOneSnakeBody(source, e, Snake);
                     }
                     else
                     {
-                        SnakesBody[i].MoveSnakesBody(source, e, SnakesBody[i + 1]);
+                        SnakesBody[i].MoveSnakesBody(source, e, SnakesBody[i - 1]);
                     }
                 }
-
             }
+
             if (CheckAppleEat())
             {
                 Apple.SpawnNextApple();
@@ -77,7 +77,7 @@ namespace SnakeSense.MainWindow
                 {
                     if (Snake.Score == 0)
                     {
-                        if ( Snake.XSpeed == 10)
+                        if (Snake.XSpeed == 10)
                         {
                             SnakesBody.Add(new SnakesBody(Snake.XPosition - 15, Snake.YPosition));
                         }
@@ -87,7 +87,7 @@ namespace SnakeSense.MainWindow
                         }
                         else if (Snake.YSpeed == 10)
                         {
-                            SnakesBody.Add(new SnakesBody(Snake.XPosition , Snake.YPosition - 15));
+                            SnakesBody.Add(new SnakesBody(Snake.XPosition, Snake.YPosition - 15));
                         }
                         else if (Snake.YSpeed == -10)
                         {
@@ -97,18 +97,35 @@ namespace SnakeSense.MainWindow
                     }
                     else
                     {
-                        SnakesBody.Add(new SnakesBody(SnakesBody.Last().XPosition - 15, SnakesBody.Last().YPosition ));
-                    }
-                }
-                Snake.Score += 1;
-            }
+                        if (SnakesBody.Last().XSpeed == 10)
+                        {
+                            SnakesBody.Add(new SnakesBody(SnakesBody.Last().XPosition - 15, SnakesBody.Last().YPosition));
+                        }
+                        else if (SnakesBody.Last().XSpeed == -10)
+                        {
+                            SnakesBody.Add(new SnakesBody(SnakesBody.Last().XPosition + 15, SnakesBody.Last().YPosition));
+                        }
+                        else if (SnakesBody.Last().YSpeed == 10)
+                        {
+                            SnakesBody.Add(new SnakesBody(SnakesBody.Last().XPosition, SnakesBody.Last().YPosition - 15));
+                        }
+                        else if (SnakesBody.Last().YSpeed == -10)
+                        {
+                            SnakesBody.Add(new SnakesBody(SnakesBody.Last().XPosition, SnakesBody.Last().YPosition + 15));
+                        }
 
+                    }
+
+                    Snake.Score += 1;
+                }
+            }
         }
         public bool ChceckBorder()
         {
             if (!IfPause)
             {
-                if ((Snake.XPosition >= mWindowWidth) || (Snake.YPosition >= mWindowHeight) || (Snake.XPosition <= 0) || (Snake.YPosition <= 0))
+                // Bug with height?
+                if ((Snake.XPosition + 30 >= mWindowWidth) || (Snake.YPosition + 30 >= mWindowHeight) || (Snake.XPosition <= 0) || (Snake.YPosition  <= 0))
                 {
                     Snake.YSpeed = 0;
                     Snake.XSpeed = 0;
@@ -128,9 +145,9 @@ namespace SnakeSense.MainWindow
         }
         public bool CheckAppleEat()
         {
-            if (!IfPause) 
+            if (!IfPause)
             {
-                if ((Snake.XPosition  >= Apple.XPosition - 15) && (Snake.XPosition  <= Apple.XPosition+15) && (Snake.YPosition  >= Apple.YPosition - 15) && (Snake.YPosition  <= Apple.YPosition + 15))
+                if ((Snake.XPosition >= Apple.XPosition - 15) && (Snake.XPosition <= Apple.XPosition + 15) && (Snake.YPosition >= Apple.YPosition - 15) && (Snake.YPosition <= Apple.YPosition + 15))
                 {
                     return true;
                 }
