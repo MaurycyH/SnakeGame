@@ -26,8 +26,10 @@
                                     Canvas.Left="{Binding XPosition}"
                                     Canvas.Top="{Binding YPosition}"
                                     Width="15"
-                                    Height="10"
-                                    Fill="Blue" />
+                                    Height="15"
+                                    Fill="Blue">
+                            </Rectangle>
+
                         </Canvas>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
@@ -36,14 +38,15 @@
             <Rectangle
                 Canvas.Left="{Binding Path = Snake.XPosition}"
                 Canvas.Top="{Binding Path = Snake.YPosition}"
-                Width="20"
+                Width="15"
                 Height="15"
-                Fill="Red"/>
+                Fill="Red">
+            </Rectangle>
             <Rectangle
                 Canvas.Left="{Binding Path = Apple.XPosition}"
                 Canvas.Top="{Binding Path = Apple.YPosition}"
-                Width="15"
-                Height="15"
+                Width="12"
+                Height="12"
                 Fill="Green"/>
         </Canvas>
         

@@ -56,7 +56,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Apple.cs" />
-    <Compile Include="Snake.cs" />
+    <Compile Include="snake.cs" />
     <Compile Include="SnakesBody.cs" />
     <Page Include="MainWindow\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

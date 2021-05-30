@@ -77,7 +77,23 @@ namespace SnakeSense.MainWindow
                 {
                     if (Snake.Score == 0)
                     {
-                        SnakesBody.Add(new SnakesBody(Snake.XPosition - 10, Snake.YPosition + 2));
+                        if ( Snake.XSpeed == 10)
+                        {
+                            SnakesBody.Add(new SnakesBody(Snake.XPosition - 15, Snake.YPosition));
+                        }
+                        else if (Snake.XSpeed == -10)
+                        {
+                            SnakesBody.Add(new SnakesBody(Snake.XPosition + 15, Snake.YPosition));
+                        }
+                        else if (Snake.YSpeed == 10)
+                        {
+                            SnakesBody.Add(new SnakesBody(Snake.XPosition , Snake.YPosition - 15));
+                        }
+                        else if (Snake.YSpeed == -10)
+                        {
+                            SnakesBody.Add(new SnakesBody(Snake.XPosition, Snake.YPosition + 15));
+                        }
+
                     }
                     else
                     {

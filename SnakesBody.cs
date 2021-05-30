@@ -65,6 +65,8 @@ namespace SnakeSense
                 OnPropertyChanged(nameof(YSpeed));
             }
         }
+
+        
         public SnakesBody(int left, int top)
         {
             XPosition = left;
@@ -78,8 +80,27 @@ namespace SnakeSense
         }
         public void MoveOneSnakeBody(object source, ElapsedEventArgs e, Snake snake)
         {
-            XPosition = snake.XPosition - 10;
-            YPosition = snake.YPosition + 2;
+            if (snake.XSpeed == 10)
+            {
+                XPosition = snake.XPosition - 10;
+                YPosition = snake.YPosition;
+            }
+            else if (snake.XSpeed == -10)
+            {
+                XPosition = snake.XPosition + 10;
+                YPosition = snake.YPosition;
+            }
+            else if (snake.YSpeed == 10)
+            {
+                XPosition = snake.XPosition;
+                YPosition = snake.YPosition - 10;
+            }
+            else if (snake.YSpeed == -10)
+            {
+                XPosition = snake.XPosition;
+                YPosition = snake.YPosition + 10;
+            }
+
         }
     }
 }
