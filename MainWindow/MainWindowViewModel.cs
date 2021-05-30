@@ -17,7 +17,7 @@ namespace SnakeSense.MainWindow
     /// </summary>
     public class MainWindowViewModel : NotifyModel
     {
-        object _itemsLock = new object ();
+        object mSnakesBodyLock = new object ();
         private double mWindowHeight;
         private double mWindowWidth;
         private bool IfPause = false;
@@ -47,7 +47,7 @@ namespace SnakeSense.MainWindow
             mWindowHeight = App.Current.MainWindow.Height;
             mWindowWidth = App.Current.MainWindow.Width;
             SnakesBody = new ObservableCollection<SnakesBody>();
-            BindingOperations.EnableCollectionSynchronization(SnakesBody, _itemsLock);
+            BindingOperations.EnableCollectionSynchronization(SnakesBody, mSnakesBodyLock);
             Timer.Elapsed += new ElapsedEventHandler(RefreshSnakePosition);
             Timer.Enabled = true;
             
@@ -57,15 +57,34 @@ namespace SnakeSense.MainWindow
             if (ChceckBorder())
             {
                 Snake.MoveSnake(source, e);
+                for (int i = 0; i < SnakesBody.Count(); i++)
+                {
+                    if ( i == SnakesBody.Count() - 1)
+                    {
+                        SnakesBody[i].MoveOneSnakeBody(source, e, Snake);
+                    }
+                    else
+                    {
+                        SnakesBody[i].MoveSnakesBody(source, e, SnakesBody[i + 1]);
+                    }
+                }
+
             }
             if (CheckAppleEat())
             {
                 Apple.SpawnNextApple();
-                lock (_itemsLock)
+                lock (mSnakesBodyLock)
                 {
-                    SnakesBody.Add(new SnakesBody(Snake.XPosition - 10, Snake.YPosition - 5));
+                    if (Snake.Score == 0)
+                    {
+                        SnakesBody.Add(new SnakesBody(Snake.XPosition - 10, Snake.YPosition + 2));
+                    }
+                    else
+                    {
+                        SnakesBody.Add(new SnakesBody(SnakesBody.Last().XPosition - 15, SnakesBody.Last().YPosition ));
+                    }
                 }
-
+                Snake.Score += 1;
             }
 
         }

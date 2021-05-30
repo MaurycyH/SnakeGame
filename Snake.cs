@@ -14,6 +14,7 @@ namespace SnakeSense
         private int mYPosition;
         private int mXSpeed;
         private int mYSpeed;
+        private int mScore;
 
         // Property for X Position of snake
         public int XPosition
@@ -65,11 +66,24 @@ namespace SnakeSense
                 OnPropertyChanged(nameof(YSpeed));
             }
         }
+        public int Score
+        {
+            get
+            {
+                return mScore;
+            }
+            set
+            {
+                mScore = value;
+                OnPropertyChanged(nameof(Score));
+            }
+        }
         public ICommand KeyCommand { get; }
         public Snake()
         {
             XPosition = 150;
             YPosition = 100;
+            Score = 0;
             KeyCommand = new ParameterCommand(parameter => KeyPressed(parameter), true);
         }
         public void MoveSnake(object source, ElapsedEventArgs e)
