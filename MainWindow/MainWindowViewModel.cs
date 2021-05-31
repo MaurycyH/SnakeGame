@@ -9,6 +9,7 @@ using System.Timers;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
+using SnakeSense.Helpers;
 
 namespace SnakeSense.MainWindow
 {
@@ -32,10 +33,8 @@ namespace SnakeSense.MainWindow
         /// Using it for refresh screen im not sure if it is better than DrawingVisual
         /// </summary>
         public Timer Timer { get; set; }
-        /// <summary>
-        /// Command for key input
-        /// </summary>
-       // public ICommand KeyCommand { get; }
+
+        public DownloadImageHelper DownloadImageHelper;
         /// <summary>
         /// Constructor for ViewModel
         /// </summary>
@@ -47,12 +46,13 @@ namespace SnakeSense.MainWindow
             mWindowHeight = App.Current.MainWindow.Height;
             mWindowWidth = App.Current.MainWindow.Width;
             SnakesBody = new ObservableCollection<SnakesBody>();
+            DownloadImageHelper = new DownloadImageHelper();
             BindingOperations.EnableCollectionSynchronization(SnakesBody, mSnakesBodyLock);
             Timer.Elapsed += new ElapsedEventHandler(RefreshSnakePosition);
             Timer.Enabled = true;
 
         }
-        public void RefreshSnakePosition(object source, ElapsedEventArgs e)
+        public async void RefreshSnakePosition(object source, ElapsedEventArgs e)
         {
             if (ChceckBorder())
             {
@@ -73,6 +73,7 @@ namespace SnakeSense.MainWindow
             if (CheckAppleEat())
             {
                 Apple.SpawnNextApple();
+                await DownloadImageHelper.GetImageAsync(new System.Threading.CancellationToken());
                 lock (mSnakesBodyLock)
                 {
                     if (Snake.Score == 0)

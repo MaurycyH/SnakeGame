@@ -10,15 +10,16 @@ using System.Threading.Tasks;
 
 namespace SnakeSense.Helpers
 {
-    /// <summary>
-    /// Resize the image to the specified width and height.
-    /// </summary>
-    /// <param name="image">The image to resize.</param>
-    /// <param name="width">The desired width.</param>
-    /// <param name="height">The desired height.</param>
-    /// <returns>The resized image.</returns>
+
     public static class ResizeImageHelper
     {
+        /// <summary>
+        /// Resize the image to the specified width and height.
+        /// </summary>
+        /// <param name="image">The image to resize.</param>
+        /// <param name="width">The desired width.</param>
+        /// <param name="height">The desired height.</param>
+        /// <returns>The resized image.</returns>
         public static Bitmap ResizeImage(Image image, int width, int height)
         {
             Rectangle destRect = new Rectangle(0, 0, width, height);

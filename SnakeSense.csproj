@@ -60,6 +60,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Apple.cs" />
+    <Compile Include="Helpers\DirectoryHelper.cs" />
     <Compile Include="Helpers\DownloadImageHelper.cs" />
     <Compile Include="Helpers\ResizeImageHelper.cs" />
     <Compile Include="snake.cs" />

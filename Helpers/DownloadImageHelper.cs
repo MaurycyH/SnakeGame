@@ -13,9 +13,12 @@ namespace SnakeSense.Helpers
     public class DownloadImageHelper
     {
         private List<Uri> mImageList;
+        private DirectoryHelper mDirectoryHelper;
         public Random random;
         public DownloadImageHelper()
         {
+            random = new Random();
+            mDirectoryHelper = new DirectoryHelper();
             mImageList = new List<Uri>();
             mImageList.Add(new Uri("https://cdn.pixabay.com/photo/2013/07/13/13/42/snake-161424_960_720.png"));
             mImageList.Add(new Uri("https://cdn.pixabay.com/photo/2013/10/15/10/04/snake-195917_960_720.jpg"));
@@ -32,9 +35,10 @@ namespace SnakeSense.Helpers
                 byte [] data = await webClient.DownloadDataTaskAsync(mImageList[rand]);
                 using (MemoryStream mem = new MemoryStream(data))
                 {
-                    System.Drawing.Image image = System.Drawing.Image.FromStream(mem);
-                    ResizeImageHelper.ResizeImage(image, 32, 32).Save(Path.Combine(Environment.SpecialFolder.ApplicationData.ToString(),"Snake",$"SnakePhoto{rand}.png"), ImageFormat.Png);
-
+                    using (System.Drawing.Image image = System.Drawing.Image.FromStream(mem))
+                    {
+                        ResizeImageHelper.ResizeImage(image, 800, 650).Save(Path.Combine(mDirectoryHelper.PathToAppData, "Snake", $"SnakePhoto{rand}.png"), ImageFormat.Png);
+                    }
                 }
             }
         }
