@@ -12,14 +12,9 @@ namespace SnakeSense.Helpers
     /// </summary>
     public class DirectoryHelper
     {
-        private string mFilePath;
         private string mAppDataPath;
         public string PathToAppData
         {
-            set
-            {
-                mAppDataPath = value;
-            }
             get
             {
                 return mAppDataPath;
@@ -27,9 +22,10 @@ namespace SnakeSense.Helpers
         }
         public DirectoryHelper()
         {
-            PathToAppData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            mFilePath = Path.Combine(PathToAppData, "Snake", "Snake");
-            Directory.CreateDirectory(Path.GetDirectoryName(mFilePath));
+            string filePath;
+            mAppDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            filePath = Path.Combine(PathToAppData, "Snake", "Snake");
+            Directory.CreateDirectory(Path.GetDirectoryName(filePath));
         }
     }
 }

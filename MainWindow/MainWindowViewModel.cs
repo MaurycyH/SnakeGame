@@ -9,6 +9,9 @@ using System.Timers;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 using SnakeSense.Helpers;
 
 namespace SnakeSense.MainWindow
@@ -22,12 +25,29 @@ namespace SnakeSense.MainWindow
         private double mWindowHeight;
         private double mWindowWidth;
         private bool IfPause = false;
+        private ImageSource mBackgroundImage;
+      //  BitmapImage bitmapImage;
         public ObservableCollection<SnakesBody> SnakesBody { get; }
+
+        public ImageSource BackgroundImage
+        {
+            get
+            {
+                return mBackgroundImage;
+            }
+            set
+            {
+                mBackgroundImage = value;
+                OnPropertyChanged(nameof(BackgroundImage));
+            }
+        }
         /// <summary>
         ///  Object representing Snake
         /// </summary>
         public Snake Snake { get; }
-
+        /// <summary>
+        /// Object representing Apple
+        /// </summary>
         public Apple Apple { get; }
         /// <summary>
         /// Using it for refresh screen im not sure if it is better than DrawingVisual
@@ -40,6 +60,7 @@ namespace SnakeSense.MainWindow
         /// </summary>
         public MainWindowViewModel()
         {
+
             Snake = new Snake();
             Apple = new Apple();
             Timer = new Timer(35);
@@ -52,6 +73,11 @@ namespace SnakeSense.MainWindow
             Timer.Enabled = true;
 
         }
+        /// <summary>
+        /// Must be Async Void because handlers are only async void
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="e"></param>
         public async void RefreshSnakePosition(object source, ElapsedEventArgs e)
         {
             if (ChceckBorder())
@@ -73,7 +99,6 @@ namespace SnakeSense.MainWindow
             if (CheckAppleEat())
             {
                 Apple.SpawnNextApple();
-                await DownloadImageHelper.GetImageAsync(new System.Threading.CancellationToken());
                 lock (mSnakesBodyLock)
                 {
                     if (Snake.Score == 0)
@@ -116,9 +141,21 @@ namespace SnakeSense.MainWindow
                         }
 
                     }
-
-                    Snake.Score += 1;
                 }
+
+                Snake.Score += 1;
+                await DownloadImageHelper.GetImageAsync(new System.Threading.CancellationToken());
+                // Memory leak?
+                App.Current.Dispatcher.Invoke(() =>
+                {
+                    BitmapImage bitmapImage = new BitmapImage();
+                    bitmapImage.BeginInit();
+                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmapImage.UriSource = new Uri(DownloadImageHelper.PathToNewImage);
+                    bitmapImage.EndInit();
+                    bitmapImage.Freeze();
+                    Dispatcher.CurrentDispatcher.Invoke(() => BackgroundImage = bitmapImage);
+                });
             }
         }
         public bool ChceckBorder()
@@ -126,7 +163,7 @@ namespace SnakeSense.MainWindow
             if (!IfPause)
             {
                 // Bug with height?
-                if ((Snake.XPosition + 30 >= mWindowWidth) || (Snake.YPosition + 30 >= mWindowHeight) || (Snake.XPosition <= 0) || (Snake.YPosition  <= 0))
+                if ((Snake.XPosition + 30 >= mWindowWidth) || (Snake.YPosition + 30 >= mWindowHeight) || (Snake.XPosition <= 0) || (Snake.YPosition <= 0))
                 {
                     Snake.YSpeed = 0;
                     Snake.XSpeed = 0;

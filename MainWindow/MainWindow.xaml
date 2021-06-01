@@ -16,6 +16,9 @@
     
     <Grid>
         <Canvas>
+            <Canvas.Background>
+                <ImageBrush ImageSource="{Binding BackgroundImage,IsAsync=True}" />
+            </Canvas.Background>
             <!--  Snake body parts  -->
             <ItemsControl ItemsSource="{Binding Path = SnakesBody}">
                 <ItemsControl.ItemTemplate>
