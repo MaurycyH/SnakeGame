@@ -19,10 +19,7 @@ namespace SnakeSense
         // Property for X Position of snake
         public int XPosition
         {
-            get
-            {
-                return mXPosition;
-            }
+            get => mXPosition;
             set
             {
                 mXPosition = value;
@@ -32,10 +29,7 @@ namespace SnakeSense
         // Property for Y Position of snake
         public int YPosition
         {
-            get
-            {
-                return mYPosition;
-            }
+            get => mYPosition;
             set
             {
                 mYPosition = value;
@@ -44,10 +38,7 @@ namespace SnakeSense
         }
         public int XSpeed
         {
-            get
-            {
-                return mXSpeed;
-            }
+            get => mXSpeed;
             set
             {
                 mXSpeed = value;
@@ -56,10 +47,7 @@ namespace SnakeSense
         }
         public int YSpeed
         {
-            get
-            {
-                return mYSpeed;
-            }
+            get => mYSpeed;
             set
             {
                 mYSpeed = value;
@@ -68,10 +56,7 @@ namespace SnakeSense
         }
         public int Score
         {
-            get
-            {
-                return mScore;
-            }
+            get => mScore;
             set
             {
                 mScore = value;
@@ -85,7 +70,7 @@ namespace SnakeSense
             XPosition = 150;
             YPosition = 100;
             Score = 0;
-            KeyCommand = new ParameterCommand(parameter => KeyPressed(parameter), true);
+            KeyCommand = new ParameterCommand(KeyPressed, true);
         }
         public void MoveSnake(object source, ElapsedEventArgs e)
         {
@@ -93,11 +78,10 @@ namespace SnakeSense
             YPosition += YSpeed;
 
         }
-        public void KeyPressed(object Key)
+        public void KeyPressed(object key)
         {
-            string Direction;
-            Direction = Key as string;
-            switch (Direction)
+            string direction = key as string;
+            switch (direction)
             {
                 case "UpKey":
                     YSpeed = -10;

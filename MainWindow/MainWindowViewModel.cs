@@ -1,18 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Timers;
 using System.Windows;
 using System.Windows.Data;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using SnakeSense.Helpers;
+using Timer = System.Timers.Timer;
 
 namespace SnakeSense.MainWindow
 {
@@ -21,20 +18,17 @@ namespace SnakeSense.MainWindow
     /// </summary>
     public class MainWindowViewModel : NotifyModel
     {
-        object mSnakesBodyLock = new object();
+        private object mSnakesBodyLock = new object();
         private double mWindowHeight;
         private double mWindowWidth;
-        private bool IfPause = false;
+        private bool mIfPause;
         private ImageSource mBackgroundImage;
       //  BitmapImage bitmapImage;
         public ObservableCollection<SnakesBody> SnakesBody { get; }
 
         public ImageSource BackgroundImage
         {
-            get
-            {
-                return mBackgroundImage;
-            }
+            get => mBackgroundImage;
             set
             {
                 mBackgroundImage = value;
@@ -64,12 +58,12 @@ namespace SnakeSense.MainWindow
             Snake = new Snake();
             Apple = new Apple();
             Timer = new Timer(35);
-            mWindowHeight = App.Current.MainWindow.Height;
-            mWindowWidth = App.Current.MainWindow.Width;
+            mWindowHeight = Application.Current.MainWindow.Height;
+            mWindowWidth = Application.Current.MainWindow.Width;
             SnakesBody = new ObservableCollection<SnakesBody>();
             DownloadImageHelper = new DownloadImageHelper();
             BindingOperations.EnableCollectionSynchronization(SnakesBody, mSnakesBodyLock);
-            Timer.Elapsed += new ElapsedEventHandler(RefreshSnakePosition);
+            Timer.Elapsed += RefreshSnakePosition;
             Timer.Enabled = true;
 
         }
@@ -80,7 +74,7 @@ namespace SnakeSense.MainWindow
         /// <param name="e"></param>
         public async void RefreshSnakePosition(object source, ElapsedEventArgs e)
         {
-            if (ChceckBorder())
+            if (CheckBorder())
             {
                 Snake.MoveSnake(source, e);
                 for (int i = SnakesBody.Count() - 1; i >= 0; i--)
@@ -144,9 +138,9 @@ namespace SnakeSense.MainWindow
                 }
 
                 Snake.Score += 1;
-                await DownloadImageHelper.GetImageAsync(new System.Threading.CancellationToken());
+                await DownloadImageHelper.GetImageAsync(new CancellationToken());
                 // Memory leak?
-                App.Current.Dispatcher.Invoke(() =>
+                Application.Current.Dispatcher.Invoke(() =>
                 {
                     BitmapImage bitmapImage = new BitmapImage();
                     bitmapImage.BeginInit();
@@ -158,46 +152,33 @@ namespace SnakeSense.MainWindow
                 });
             }
         }
-        public bool ChceckBorder()
+        public bool CheckBorder()
         {
-            if (!IfPause)
+            if (!mIfPause)
             {
                 // Bug with height?
                 if ((Snake.XPosition + 30 >= mWindowWidth) || (Snake.YPosition + 30 >= mWindowHeight) || (Snake.XPosition <= 0) || (Snake.YPosition <= 0))
                 {
                     Snake.YSpeed = 0;
                     Snake.XSpeed = 0;
-                    IfPause = true;
+                    mIfPause = true;
                     MessageBox.Show("Przegrales bo poza granice wyszedles");
                     return false;
                 }
-                else
-                {
-                    return true;
-                }
+
+                return true;
             }
-            else
-            {
-                return false;
-            }
+
+            return false;
         }
         public bool CheckAppleEat()
         {
-            if (!IfPause)
+            if (!mIfPause)
             {
-                if ((Snake.XPosition >= Apple.XPosition - 15) && (Snake.XPosition <= Apple.XPosition + 15) && (Snake.YPosition >= Apple.YPosition - 15) && (Snake.YPosition <= Apple.YPosition + 15))
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return (Snake.XPosition >= Apple.XPosition - 15) && (Snake.XPosition <= Apple.XPosition + 15) && (Snake.YPosition >= Apple.YPosition - 15) && (Snake.YPosition <= Apple.YPosition + 15);
             }
-            else
-            {
-                return false;
-            }
+
+            return false;
         }
     }
 }

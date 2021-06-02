@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -13,19 +14,18 @@ namespace SnakeSense.Helpers
     public class DirectoryHelper
     {
         private string mAppDataPath;
+
         public string PathToAppData
         {
-            get
-            {
-                return mAppDataPath;
-            }
+            get => mAppDataPath;
+            set => mAppDataPath = value;
         }
+
         public DirectoryHelper()
         {
-            string filePath;
             mAppDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            filePath = Path.Combine(PathToAppData, "Snake", "Snake");
-            Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+            String filePath = Path.Combine(PathToAppData, "Snake", "Snake");
+            Directory.CreateDirectory(Path.GetDirectoryName(filePath) ?? throw new InvalidOperationException("Cant find folder 'Snake' in AppData"));
         }
     }
 }

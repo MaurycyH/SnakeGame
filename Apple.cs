@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SnakeSense
 {
@@ -14,10 +10,7 @@ namespace SnakeSense
         // Property for X Position of Apple
         public int XPosition
         {
-            get
-            {
-                return mXPosition;
-            }
+            get => mXPosition;
             set
             {
                 mXPosition = value;
@@ -27,10 +20,7 @@ namespace SnakeSense
         // Property for Y Position of Apple
         public int YPosition
         {
-            get
-            {
-                return mYPosition;
-            }
+            get => mYPosition;
             set
             {
                 mYPosition = value;

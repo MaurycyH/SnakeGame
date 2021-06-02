@@ -17,10 +17,7 @@ namespace SnakeSense
         // Property for X Position of snake
         public int XPosition
         {
-            get
-            {
-                return mXPosition;
-            }
+            get => mXPosition;
             set
             {
                 mXPosition = value;
@@ -30,10 +27,7 @@ namespace SnakeSense
         // Property for Y Position of snake
         public int YPosition
         {
-            get
-            {
-                return mYPosition;
-            }
+            get => mYPosition;
             set
             {
                 mYPosition = value;
@@ -43,10 +37,7 @@ namespace SnakeSense
 
         public int XSpeed
         {
-            get
-            {
-                return mXSpeed;
-            }
+            get => mXSpeed;
             set
             {
                 mXSpeed = value;
@@ -55,10 +46,7 @@ namespace SnakeSense
         }
         public int YSpeed
         {
-            get
-            {
-                return mYSpeed;
-            }
+            get => mYSpeed;
             set
             {
                 mYSpeed = value;
@@ -72,12 +60,12 @@ namespace SnakeSense
             XPosition = left;
             YPosition = top;
         }
-        public void MoveSnakesBody(object source, ElapsedEventArgs e,SnakesBody PreviousSnakesBody)
+        public void MoveSnakesBody(object source, ElapsedEventArgs e,SnakesBody previousSnakesBody)
         {
-            XPosition = PreviousSnakesBody.XPosition;
-            YPosition = PreviousSnakesBody.YPosition;
-            XSpeed = PreviousSnakesBody.XSpeed;
-            YSpeed = PreviousSnakesBody.YSpeed;
+            XPosition = previousSnakesBody.XPosition;
+            YPosition = previousSnakesBody.YPosition;
+            XSpeed = previousSnakesBody.XSpeed;
+            YSpeed = previousSnakesBody.YSpeed;
 
         }
         public void MoveOneSnakeBody(object source, ElapsedEventArgs e, Snake snake)

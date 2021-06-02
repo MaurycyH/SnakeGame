@@ -63,7 +63,7 @@
     <Compile Include="Helpers\DirectoryHelper.cs" />
     <Compile Include="Helpers\DownloadImageHelper.cs" />
     <Compile Include="Helpers\ResizeImageHelper.cs" />
-    <Compile Include="snake.cs" />
+    <Compile Include="Snake.cs" />
     <Compile Include="SnakesBody.cs" />
     <Page Include="MainWindow\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
