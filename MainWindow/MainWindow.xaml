@@ -46,8 +46,9 @@
                 <Rectangle
                 Canvas.Left="{Binding Path = Apple.XPosition}"
                 Canvas.Top="{Binding Path = Apple.YPosition}"
-                Width="12"
-                Height="12"
-                Fill="Green"/>
+                Width="15"
+                Height="15"
+                Fill="Green"
+                Stroke="AliceBlue"/>
             </Canvas>
 </Window>
