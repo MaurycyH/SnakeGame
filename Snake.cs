@@ -9,7 +9,8 @@ using System.Windows.Input;
 namespace SnakeSense
 {
     public class Snake : NotifyModel
-    {
+    { 
+        // To interface? or another class?
         private int mXPosition;
         private int mYPosition;
         private int mXSpeed;
