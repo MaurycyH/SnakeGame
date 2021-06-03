@@ -68,7 +68,7 @@ namespace SnakeSense
         public Snake()
         {
             XPosition = 150;
-            YPosition = 100;
+            YPosition = 200;
             Score = 0;
             KeyCommand = new ParameterCommand(KeyPressed, true);
         }
@@ -84,20 +84,32 @@ namespace SnakeSense
             switch (direction)
             {
                 case "UpKey":
-                    YSpeed = -10;
-                    XSpeed = 0;
+                    if (YSpeed != 15)
+                    {
+                        YSpeed = -15;
+                        XSpeed = 0;
+                    }
                     break;
                 case "DownKey":
-                    YSpeed = 10;
-                    XSpeed = 0;
+                    if (YSpeed != -15)
+                    {
+                        YSpeed = 15;
+                        XSpeed = 0;
+                    }
                     break;
                 case "LeftKey":
-                    YSpeed = 0;
-                    XSpeed = -10;
+                    if (XSpeed != 15)
+                    {
+                        YSpeed = 0;
+                        XSpeed = -15;
+                    }
                     break;
                 case "RightKey":
-                    YSpeed = 0;
-                    XSpeed = 10;
+                    if (XSpeed != -15)
+                    {
+                        YSpeed = 0;
+                        XSpeed = 15;
+                    }
                     break;
                 default:
                     break;

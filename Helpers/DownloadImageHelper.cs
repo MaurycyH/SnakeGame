@@ -37,7 +37,7 @@ namespace SnakeSense.Helpers
                 {
                     using (System.Drawing.Image image = System.Drawing.Image.FromStream(mem))
                     {
-                        ResizeImageHelper.ResizeImage(image, 800, 650).Save(Path.Combine(mDirectoryHelper.PathToAppData, "Snake", $"SnakePhoto{rand}.png"), ImageFormat.Png);
+                        ResizeImageHelper.ResizeImage(image, 825, 450).Save(Path.Combine(mDirectoryHelper.PathToAppData, "Snake", $"SnakePhoto{rand}.png"), ImageFormat.Png);
                         PathToNewImage = Path.Combine(mDirectoryHelper.PathToAppData, "Snake", $"SnakePhoto{rand}.png");
                     }
                 }

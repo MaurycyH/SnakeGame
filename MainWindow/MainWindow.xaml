@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SnakeSense.MainWindow"
         mc:Ignorable="d"
-        Title="Snake Game" Height="450" Width="800">
+        Title="Snake Game" Height="450" Width="825">
     <!-- Snake control input -->
     <Window.InputBindings>
         <KeyBinding Command="{Binding Path = Snake.KeyCommand}" CommandParameter="UpKey"  Key="Up" />
@@ -13,45 +13,41 @@
         <KeyBinding Command="{Binding Path = Snake.KeyCommand}" CommandParameter="LeftKey" Key="Left"/>
         <KeyBinding Command="{Binding Path = Snake.KeyCommand}" CommandParameter="RightKey"  Key="Right"/>
     </Window.InputBindings>
-    
-    <Grid>
-        <Canvas>
-            <Canvas.Background>
-                <ImageBrush ImageSource="{Binding BackgroundImage,IsAsync=True}" />
-            </Canvas.Background>
-            <!--  Snake body parts  -->
-            <ItemsControl ItemsSource="{Binding Path = SnakesBody}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Canvas>
-                            <!--  Single snake body part  -->
-                            <Rectangle
+    <Canvas>
+                <Canvas.Background>
+                    <ImageBrush ImageSource="{Binding BackgroundImage,IsAsync=True}" />
+                </Canvas.Background>
+                <!--  Snake body parts  -->
+                <ItemsControl ItemsSource="{Binding Path = SnakesBody}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Canvas>
+                                <!--  Single snake body part  -->
+                                <Rectangle
                                     Canvas.Left="{Binding XPosition}"
                                     Canvas.Top="{Binding YPosition}"
                                     Width="15"
                                     Height="15"
                                     Fill="Blue">
-                            </Rectangle>
+                                </Rectangle>
 
-                        </Canvas>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-            <!-- Snake Head-->
-            <Rectangle
+                            </Canvas>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <!-- Snake Head-->
+                <Rectangle
                 Canvas.Left="{Binding Path = Snake.XPosition}"
                 Canvas.Top="{Binding Path = Snake.YPosition}"
                 Width="15"
                 Height="15"
                 Fill="Red">
-            </Rectangle>
-            <Rectangle
+                </Rectangle>
+                <Rectangle
                 Canvas.Left="{Binding Path = Apple.XPosition}"
                 Canvas.Top="{Binding Path = Apple.YPosition}"
                 Width="12"
                 Height="12"
                 Fill="Green"/>
-        </Canvas>
-        
-    </Grid>
+            </Canvas>
 </Window>

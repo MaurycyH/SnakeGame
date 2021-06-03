@@ -70,28 +70,28 @@ namespace SnakeSense
         }
         public void MoveOneSnakeBody(object source, ElapsedEventArgs e, Snake snake)
         {
-            if (snake.XSpeed == 10)
+            if (snake.XSpeed == 15)
             {
-                XPosition = snake.XPosition - 10;
+                XPosition = snake.XPosition - 15;
                 YPosition = snake.YPosition;
                 XSpeed = snake.XSpeed;
             }
-            else if (snake.XSpeed == -10)
+            else if (snake.XSpeed == -15)
             {
-                XPosition = snake.XPosition + 10;
+                XPosition = snake.XPosition + 15;
                 YPosition = snake.YPosition;
                 XSpeed = snake.XSpeed;
             }
-            else if (snake.YSpeed == 10)
+            else if (snake.YSpeed == 15)
             {
                 XPosition = snake.XPosition;
-                YPosition = snake.YPosition - 10;
+                YPosition = snake.YPosition - 15;
                 YSpeed = snake.YSpeed;
             }
-            else if (snake.YSpeed == -10)
+            else if (snake.YSpeed == -15)
             {
                 XPosition = snake.XPosition;
-                YPosition = snake.YPosition + 10;
+                YPosition = snake.YPosition + 15;
                 YSpeed = snake.YSpeed;
             }
 
