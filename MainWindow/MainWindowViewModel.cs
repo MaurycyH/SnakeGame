@@ -23,7 +23,6 @@ namespace SnakeSense.MainWindow
         private double mWindowWidth;
         private bool mIfPause;
         private ImageSource mBackgroundImage;
-        //  BitmapImage bitmapImage;
         public ObservableCollection<SnakesBody> SnakesBody { get; }
 
         public ImageSource BackgroundImage
