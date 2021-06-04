@@ -15,7 +15,7 @@ namespace SnakeSense.MainWindow
 {
     /// <summary>
     /// ViewModel for MainWindow
-    /// </summary>
+    /// </summary> 
     public class MainWindowViewModel : NotifyModel
     {
         private object mSnakesBodyLock = new object();
