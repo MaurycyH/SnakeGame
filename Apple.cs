@@ -27,17 +27,18 @@ namespace SnakeSense
                 OnPropertyChanged(nameof(YPosition));
             }
         }
-        Random Random = new Random();
         public Apple()
         {
-            XPosition = Random.Next(25, 650);
-            YPosition = Random.Next(25, 400);
+            Random random = new Random();
+            XPosition = random.Next(25, 650);
+            YPosition = random.Next(25, 400);
         }
 
         public void SpawnNextApple()
         {
-            XPosition = Random.Next(25, 650);
-            YPosition = Random.Next(25, 400);
+            Random random = new Random();
+            XPosition = random.Next(25, 650);
+            YPosition = random.Next(25, 400);
         }
     }
 }

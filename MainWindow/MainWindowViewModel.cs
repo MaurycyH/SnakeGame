@@ -140,18 +140,17 @@ namespace SnakeSense.MainWindow
                 }
 
                 Snake.Score += 1;
-                await DownloadImageHelper.GetImageAsync(new CancellationToken());
-                // Memory leak?
-                Application.Current.Dispatcher.Invoke(() =>
-                {
-                    BitmapImage bitmapImage = new BitmapImage();
-                    bitmapImage.BeginInit();
-                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                    bitmapImage.UriSource = new Uri(DownloadImageHelper.PathToNewImage);
-                    bitmapImage.EndInit();
-                    bitmapImage.Freeze();
-                    Dispatcher.CurrentDispatcher.Invoke(() => BackgroundImage = bitmapImage);
-                });
+
+                await DownloadImageHelper.GetImageAsync();
+                BitmapImage bitmapImage = new BitmapImage();
+                bitmapImage.BeginInit();
+                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapImage.UriSource = new Uri(DownloadImageHelper.PathToNewImage);
+                bitmapImage.EndInit();
+                bitmapImage.Freeze();
+                Dispatcher.CurrentDispatcher.Invoke(() => BackgroundImage = bitmapImage);
+
+
             }
         }
         public bool CheckBorder()

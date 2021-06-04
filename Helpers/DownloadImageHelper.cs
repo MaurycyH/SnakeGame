@@ -26,7 +26,7 @@ namespace SnakeSense.Helpers
                 new Uri("https://cdn.pixabay.com/photo/2013/07/12/12/30/snake-145808_960_720.png")
             };
         }
-        public async Task GetImageAsync(CancellationToken cancellationToken)
+        public async Task GetImageAsync()
         {
             Random random = new Random();
             int rand = random.Next(4);
