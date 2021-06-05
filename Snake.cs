@@ -8,6 +8,9 @@ using System.Windows.Input;
 
 namespace SnakeSense
 {
+    /// <summary>
+    /// Class defining Snake object
+    /// </summary>
     public class Snake : NotifyModel
     { 
         // To interface? or another class?

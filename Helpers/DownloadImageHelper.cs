@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace SnakeSense.Helpers
 {
+    /// <summary>
+    /// Download image from list and change path to newly downloaded
+    /// </summary>
     public class DownloadImageHelper
     {
         private readonly List<Uri> mImageList;

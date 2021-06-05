@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace SnakeSense.Helpers
 {
     /// <summary>
-    /// Class helps to retrive path to appdata folder and esnure folder exists
+    /// Class helps to retrive path to appdata folder and creates new folder "Snake"
     /// </summary>
     public class DirectoryHelper
     {
@@ -20,7 +20,9 @@ namespace SnakeSense.Helpers
             get => mAppDataPath;
             set => mAppDataPath = value;
         }
-
+        /// <summary>
+        /// Constructor which sets path to appdata and creates directory "Snake" in appdata
+        /// </summary>
         public DirectoryHelper()
         {
             mAppDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);

@@ -7,6 +7,9 @@ using System.Windows.Input;
 
 namespace SnakeSense
 {
+    /// <summary>
+    /// Class create command which can pass argument
+    /// </summary>
     public class ParameterCommand : ICommand
     {
         private Action<object> mAction;

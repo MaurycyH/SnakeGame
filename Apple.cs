@@ -2,6 +2,9 @@
 
 namespace SnakeSense
 {
+    /// <summary>
+    /// Class defining Apple object
+    /// </summary>
     public class Apple : NotifyModel
     {
         private int mXPosition;
@@ -29,9 +32,8 @@ namespace SnakeSense
         }
         public Apple()
         {
-            Random random = new Random();
-            XPosition = random.Next(25, 650);
-            YPosition = random.Next(25, 400);
+            XPosition = 600;
+            YPosition = 250;
         }
 
         public void SpawnNextApple()

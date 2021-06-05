@@ -7,6 +7,9 @@ using System.Timers;
 
 namespace SnakeSense
 {
+    /// <summary>
+    /// Class defining Snakes body parts
+    /// </summary>
     public class SnakesBody : NotifyModel
     {
         private int mXPosition;
@@ -14,7 +17,7 @@ namespace SnakeSense
         private int mXSpeed;
         private int mYSpeed;
 
-        // Property for X Position of snake
+        // Property for X Position of snake body part
         public int XPosition
         {
             get => mXPosition;
@@ -24,7 +27,7 @@ namespace SnakeSense
                 OnPropertyChanged(nameof(XPosition));
             }
         }
-        // Property for Y Position of snake
+        // Property for Y Position of snake body part
         public int YPosition
         {
             get => mYPosition;
@@ -54,12 +57,22 @@ namespace SnakeSense
             }
         }
 
-        
+        /// <summary>
+        /// Constructor which sets X,Y position of body part
+        /// </summary>
+        /// <param name="left">X position of body part</param>
+        /// <param name="top">Y position of body part</param>
         public SnakesBody(int left, int top)
         {
             XPosition = left;
             YPosition = top;
         }
+        /// <summary>
+        /// Moves Snakes Body according to its previous part
+        /// </summary>
+        /// <param name="source"> Source of the event, Timer </param>
+        /// <param name="e">Information from Timer</param>
+        /// <param name="previousSnakesBody"> Previous body part</param>
         public void MoveSnakesBody(object source, ElapsedEventArgs e,SnakesBody previousSnakesBody)
         {
             XPosition = previousSnakesBody.XPosition;
@@ -68,6 +81,12 @@ namespace SnakeSense
             YSpeed = previousSnakesBody.YSpeed;
 
         }
+        /// <summary>
+        ///  Moves Snakes Body according to snake head
+        /// </summary>
+        /// <param name="source"> Source of the event, Timer</param>
+        /// <param name="e">Information from Timer</param>
+        /// <param name="snake"> head of snake</param>
         public void MoveOneSnakeBody(object source, ElapsedEventArgs e, Snake snake)
         {
             if (snake.XSpeed == 15)
