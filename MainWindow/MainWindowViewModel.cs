@@ -25,6 +25,9 @@ namespace SnakeSense.MainWindow
         private ImageSource mBackgroundImage;
         public ObservableCollection<SnakesBody> SnakesBody { get; }
 
+        /// <summary>
+        /// Property for canvas BackgroundImage
+        /// </summary>
         public ImageSource BackgroundImage
         {
             get => mBackgroundImage;
@@ -42,11 +45,15 @@ namespace SnakeSense.MainWindow
         /// Object representing Apple
         /// </summary>
         public Apple Apple { get; }
+
         /// <summary>
         /// Using it for refresh screen im not sure if it is better than DrawingVisual
         /// </summary>
         public Timer Timer { get; set; }
 
+        /// <summary>
+        /// Helper contains method for downloading image
+        /// </summary>
         public DownloadImageHelper DownloadImageHelper;
         /// <summary>
         /// Constructor for ViewModel
@@ -67,10 +74,10 @@ namespace SnakeSense.MainWindow
 
         }
         /// <summary>
-        /// Must be Async Void because handlers are only async void
+        /// Refresh snake position if didnt collide with wall or itself. Must be async void because its in handler
         /// </summary>
-        /// <param name="source"></param>
-        /// <param name="e"></param>
+        /// <param name="source">Timer</param>
+        /// <param name="e"> Data from timer</param>
         public async void RefreshSnakePosition(object source, ElapsedEventArgs e)
         {
 
@@ -94,7 +101,7 @@ namespace SnakeSense.MainWindow
             if (CheckAppleEat())
             {
                 Apple.SpawnNextApple();
-                // Lock to change  collection view 
+                // Lock to change collection view 
                 lock (mSnakesBodyLock)
                 {
                     if (Snake.Score == 0)
@@ -140,30 +147,34 @@ namespace SnakeSense.MainWindow
                 }
 
                 Snake.Score += 1;
-
-                await DownloadImageHelper.GetImageAsync();
+                await DownloadImageHelper.GetImageAsync(); //download image
                 BitmapImage bitmapImage = new BitmapImage();
                 bitmapImage.BeginInit();
                 bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
                 bitmapImage.UriSource = new Uri(DownloadImageHelper.PathToNewImage);
                 bitmapImage.EndInit();
                 bitmapImage.Freeze();
-                Dispatcher.CurrentDispatcher.Invoke(() => BackgroundImage = bitmapImage);
-
-
+                Dispatcher.CurrentDispatcher.Invoke(() => BackgroundImage = bitmapImage); // change background image
             }
         }
+        /// <summary>
+        /// Checks if snake hit the border of window (when default height and width)
+        /// </summary>
+        /// <returns> False if hit, True if didn't</returns>
         public bool CheckBorder()
         {
             if (!mIfPause)
             {
                 //  Size of window need to be %15
-                if ((Snake.XPosition + Snake.XSpeed + 15 >= mWindowWidth) || (Snake.YPosition + Snake.YSpeed + 15 >= mWindowHeight - 30) || (Snake.XPosition <= 0) || (Snake.YPosition - 15 <= 0))
+                if ((Snake.XPosition + Snake.XSpeed + 15 >= mWindowWidth) 
+                    || (Snake.YPosition + Snake.YSpeed + 15 >= mWindowHeight - 30) 
+                    || (Snake.XPosition <= 0) 
+                    || (Snake.YPosition - 15 <= 0))
                 {
                     Snake.YSpeed = 0;
                     Snake.XSpeed = 0;
                     mIfPause = true;
-                    MessageBox.Show("Przegrales bo poza granice wyszedles");
+                    MessageBox.Show("You lost because you hit the border");
                     return false;
                 }
 
@@ -173,6 +184,10 @@ namespace SnakeSense.MainWindow
             return false;
         }
 
+        /// <summary>
+        /// Checks if snake did hit his own tail
+        /// </summary>
+        /// <returns> False if hit, True if didn't</returns>
         public bool CheckBodyCollision()
         {
             if (!mIfPause)
@@ -185,7 +200,7 @@ namespace SnakeSense.MainWindow
                         Snake.YSpeed = 0;
                         Snake.XSpeed = 0;
                         mIfPause = true;
-                        MessageBox.Show("Przegrales bo uderzyles w ogon");
+                        MessageBox.Show("You lost because you hit your own tail.");
                         return false;
                     }
                 }
@@ -193,11 +208,18 @@ namespace SnakeSense.MainWindow
             }
             return false;
         }
+        /// <summary>
+        /// Checks if snake crossed apple position
+        /// </summary>
+        /// <returns> True if did, False if didn't</returns>
         public bool CheckAppleEat()
         {
             if (!mIfPause)
             {
-                return (Snake.XPosition >= Apple.XPosition - 15) && (Snake.XPosition <= Apple.XPosition + 15) && (Snake.YPosition >= Apple.YPosition - 15) && (Snake.YPosition <= Apple.YPosition + 15);
+                return (Snake.XPosition >= Apple.XPosition - 15) 
+                       && (Snake.XPosition <= Apple.XPosition + 15) 
+                       && (Snake.YPosition >= Apple.YPosition - 15) 
+                       && (Snake.YPosition <= Apple.YPosition + 15);
             }
 
             return false;

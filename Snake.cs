@@ -12,15 +12,16 @@ namespace SnakeSense
     /// Class defining Snake object
     /// </summary>
     public class Snake : NotifyModel
-    { 
-        // To interface? or another class?
+    {
         private int mXPosition;
         private int mYPosition;
         private int mXSpeed;
         private int mYSpeed;
         private int mScore;
 
-        // Property for X Position of snake
+        /// <summary>
+        /// Property for X Position of snake
+        /// </summary>
         public int XPosition
         {
             get => mXPosition;
@@ -30,7 +31,9 @@ namespace SnakeSense
                 OnPropertyChanged(nameof(XPosition));
             }
         }
-        // Property for Y Position of snake
+        /// <summary>
+        ///  Property for Y Position of snake
+        /// </summary>
         public int YPosition
         {
             get => mYPosition;
@@ -40,6 +43,9 @@ namespace SnakeSense
                 OnPropertyChanged(nameof(YPosition));
             }
         }
+        /// <summary>
+        /// Property for speed for X axis of snake
+        /// </summary>
         public int XSpeed
         {
             get => mXSpeed;
@@ -49,6 +55,9 @@ namespace SnakeSense
                 OnPropertyChanged(nameof(XSpeed));
             }
         }
+        /// <summary>
+        /// Property for speed for Y axis of snake
+        /// </summary>
         public int YSpeed
         {
             get => mYSpeed;
@@ -58,6 +67,9 @@ namespace SnakeSense
                 OnPropertyChanged(nameof(YSpeed));
             }
         }
+        /// <summary>
+        /// Property represents score which player get
+        /// </summary>
         public int Score
         {
             get => mScore;
@@ -67,8 +79,14 @@ namespace SnakeSense
                 OnPropertyChanged(nameof(Score));
             }
         }
-
+        /// <summary>
+        /// Command that takes keyboard input
+        /// </summary>
         public ICommand KeyCommand { get; }
+
+        /// <summary>
+        /// Constructor that sets X and Y position at start and initialize Score and KeyCommand
+        /// </summary>
         public Snake()
         {
             XPosition = 150;
@@ -76,12 +94,21 @@ namespace SnakeSense
             Score = 0;
             KeyCommand = new ParameterCommand(KeyPressed, true);
         }
+        /// <summary>
+        /// Moves the snake accordingly to direction that he move
+        /// </summary>
+        /// <param name="source">Timer</param>
+        /// <param name="e">Timer Data</param>
         public void MoveSnake(object source, ElapsedEventArgs e)
         {
             XPosition += XSpeed;
             YPosition += YSpeed;
 
         }
+        /// <summary>
+        /// Takes keyboard input and converts it to snake speed
+        /// </summary>
+        /// <param name="key">Keyboard input</param>
         public void KeyPressed(object key)
         {
             string direction = key as string;

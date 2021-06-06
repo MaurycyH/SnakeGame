@@ -17,7 +17,9 @@ namespace SnakeSense
         private int mXSpeed;
         private int mYSpeed;
 
-        // Property for X Position of snake body part
+        /// <summary>
+        /// Property for X Position of snake body part
+        /// </summary>
         public int XPosition
         {
             get => mXPosition;
@@ -27,7 +29,9 @@ namespace SnakeSense
                 OnPropertyChanged(nameof(XPosition));
             }
         }
-        // Property for Y Position of snake body part
+        /// <summary>
+        /// Property for Y Position of snake body part
+        /// </summary>
         public int YPosition
         {
             get => mYPosition;
@@ -37,7 +41,9 @@ namespace SnakeSense
                 OnPropertyChanged(nameof(YPosition));
             }
         }
-
+        /// <summary>
+        /// Property for speed for X axis of snake body part
+        /// </summary>
         public int XSpeed
         {
             get => mXSpeed;
@@ -47,6 +53,9 @@ namespace SnakeSense
                 OnPropertyChanged(nameof(XSpeed));
             }
         }
+        /// <summary>
+        /// Property for speed for Y axis of snake body part
+        /// </summary>
         public int YSpeed
         {
             get => mYSpeed;
@@ -58,7 +67,7 @@ namespace SnakeSense
         }
 
         /// <summary>
-        /// Constructor which sets X,Y position of body part
+        /// Constructor which sets X,Y position of body part from parameters
         /// </summary>
         /// <param name="left">X position of body part</param>
         /// <param name="top">Y position of body part</param>

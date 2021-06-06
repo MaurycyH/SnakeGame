@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace SnakeSense.Helpers
 {
     /// <summary>
-    /// Download image from list and change path to newly downloaded
+    /// Class which contains method for downloading image from list and path to this file
     /// </summary>
     public class DownloadImageHelper
     {
@@ -17,6 +17,9 @@ namespace SnakeSense.Helpers
         private DirectoryHelper mDirectoryHelper;
         public string PathToNewImage;
 
+        /// <summary>
+        /// Constructor which initialize and populates list with links
+        /// </summary>
         public DownloadImageHelper()
         {
             mDirectoryHelper = new DirectoryHelper();
@@ -29,6 +32,10 @@ namespace SnakeSense.Helpers
                 new Uri("https://cdn.pixabay.com/photo/2013/07/12/12/30/snake-145808_960_720.png")
             };
         }
+        /// <summary>
+        /// Async Task which download image from private list and sets path to it
+        /// </summary>
+        /// <returns>Nothing</returns>
         public async Task GetImageAsync()
         {
             Random random = new Random();

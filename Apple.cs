@@ -30,12 +30,18 @@ namespace SnakeSense
                 OnPropertyChanged(nameof(YPosition));
             }
         }
+        /// <summary>
+        /// Constructor which sets X and Y of first apple
+        /// </summary>
         public Apple()
         {
             XPosition = 600;
             YPosition = 250;
         }
 
+        /// <summary>
+        /// Randomly spawns next Apple between borders (default size window)
+        /// </summary>
         public void SpawnNextApple()
         {
             Random random = new Random();
